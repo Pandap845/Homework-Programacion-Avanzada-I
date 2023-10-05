@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfAlmacenista xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Almacenista>
+    <nombreCompleto>Pedro</nombreCompleto>
+    <password>123</password>
+  </Almacenista>
+  <Almacenista>
+    <nombreCompleto>Paco</nombreCompleto>
+    <password>321</password>
+  </Almacenista>
+</ArrayOfAlmacenista>

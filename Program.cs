@@ -23,4 +23,6 @@ List<Almacenista> almacenistasPro = new()
 };
 
 
-jefe.jsonSerial("prueba.json",almacenistasPro);
+jefe.jsonSerial<Almacenista>("prueba.json", almacenistasPro);
+
+jefe.xmlSerial<Almacenista>("prueba.xml", almacenistasPro);
