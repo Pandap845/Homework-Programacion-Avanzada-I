@@ -1,0 +1,17 @@
+C:\Users\aguil\Desktop\Trabajos\Semestre 7\Tareas\2P\Almacen\obj\Debug\net7.0\Almacen.csproj.AssemblyReference.cache
+C:\Users\aguil\Desktop\Trabajos\Semestre 7\Tareas\2P\Almacen\obj\Debug\net7.0\Almacen.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\aguil\Desktop\Trabajos\Semestre 7\Tareas\2P\Almacen\obj\Debug\net7.0\Almacen.AssemblyInfoInputs.cache
+C:\Users\aguil\Desktop\Trabajos\Semestre 7\Tareas\2P\Almacen\obj\Debug\net7.0\Almacen.AssemblyInfo.cs
+C:\Users\aguil\Desktop\Trabajos\Semestre 7\Tareas\2P\Almacen\obj\Debug\net7.0\Almacen.csproj.CoreCompileInputs.cache
+C:\Users\aguil\Desktop\Trabajos\Semestre 7\Tareas\2P\Almacen\bin\Debug\net7.0\Almacen.exe
+C:\Users\aguil\Desktop\Trabajos\Semestre 7\Tareas\2P\Almacen\bin\Debug\net7.0\Almacen.deps.json
+C:\Users\aguil\Desktop\Trabajos\Semestre 7\Tareas\2P\Almacen\bin\Debug\net7.0\Almacen.runtimeconfig.json
+C:\Users\aguil\Desktop\Trabajos\Semestre 7\Tareas\2P\Almacen\bin\Debug\net7.0\Almacen.dll
+C:\Users\aguil\Desktop\Trabajos\Semestre 7\Tareas\2P\Almacen\bin\Debug\net7.0\Almacen.pdb
+C:\Users\aguil\Desktop\Trabajos\Semestre 7\Tareas\2P\Almacen\bin\Debug\net7.0\Newtonsoft.Json.dll
+C:\Users\aguil\Desktop\Trabajos\Semestre 7\Tareas\2P\Almacen\obj\Debug\net7.0\Almacen.csproj.CopyComplete
+C:\Users\aguil\Desktop\Trabajos\Semestre 7\Tareas\2P\Almacen\obj\Debug\net7.0\Almacen.dll
+C:\Users\aguil\Desktop\Trabajos\Semestre 7\Tareas\2P\Almacen\obj\Debug\net7.0\refint\Almacen.dll
+C:\Users\aguil\Desktop\Trabajos\Semestre 7\Tareas\2P\Almacen\obj\Debug\net7.0\Almacen.pdb
+C:\Users\aguil\Desktop\Trabajos\Semestre 7\Tareas\2P\Almacen\obj\Debug\net7.0\Almacen.genruntimeconfig.cache
+C:\Users\aguil\Desktop\Trabajos\Semestre 7\Tareas\2P\Almacen\obj\Debug\net7.0\ref\Almacen.dll
