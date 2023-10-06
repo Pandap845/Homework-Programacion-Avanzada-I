@@ -23,6 +23,12 @@ namespace Software
 
 {
 
+    public class Alumno
+    {
+        string? nombreCompleto;
+
+    }
+
 
     public class Login
     {
@@ -276,11 +282,10 @@ return true;
         };
 
 
-
         public string? nombreCompleto { get; set; }
 
 
-
+        
         public string? Nomina { get; set; }
 
         public string? password { get; set; }
@@ -461,52 +466,54 @@ return true;
         }
 
 
-        public bool reportes(string? campoOrd, string? FilePath)
+        public bool reportes(int campoOrd, string? FilePath)
         {
 
             if(Path.Exists(FilePath))
             {
             Profesor profesor = new();
             List<Profesor> profesors = profesor.xmlDeSerial<Profesor>(FilePath);
-        
+              List<Profesor>? pro = new();
                 switch(campoOrd)
                 {
 
-                    case "nomina":
-                    profesors.OrderBy(Profesor => Profesor.Nomina);
+                    case 1:
+                     pro = new( profesors.OrderBy(Profesor => Profesor.Nomina).ToList());;
 
                     break;
 
-                    case "nombre":
-                     profesors.OrderBy(Profesor => Profesor.nombreCompleto);
+                    case 2:
+                   pro = new( profesors.OrderBy(profesor => profesor.nombreCompleto).ToList());
+
+                  
                     break;
 
-                    case "division":
-                      profesors.OrderBy(Profesor => Profesor.division);
+                    case 3:
+                    pro = new(profesors.OrderBy(profesor => profesor.division).ToList());
+                        
+                           
                     break;
 
-                    case "materia":
-                      profesors.OrderBy(Profesor => Profesor.materias);
+                    case 4:
+                     pro = new( profesors.OrderBy(Profesor =>  Profesor.materias[0]).ToList());
+                 
                     break;
 
-                    case "password":
-                    profesors.OrderBy(Profesor => Profesor.password);
+                    case 5:
+                         pro = new( profesors.OrderBy(Profesor => Profesor.password).ToList());
                     break;
 
 
                 }
+               
 
             //Crear los reportes
 
                 string reporteJSON = Combine(CurrentDirectory, "reporte.json");
                 string reporteXML = Combine(CurrentDirectory, "reporte.xml");
 
-                    if(jsonSerial<Profesor>(reporteJSON, profesors) && xmlSerial<Profesor>(reporteXML, profesors))
-                {
-                    //Si se logró convertir, entonces.
-                    return true;
-                }
-
+                  
+return true;
             }
 
             return false;

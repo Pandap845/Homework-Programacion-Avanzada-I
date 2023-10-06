@@ -11,24 +11,6 @@
   </Profesor>
   <Profesor>
     <materias>
-      <string>5</string>
-    </materias>
-    <division>5</division>
-    <nombreCompleto>5</nombreCompleto>
-    <Nomina>ac3478d69a3c81fa62e60f5c3696165a4e5e6ac4</Nomina>
-    <password>ac3478d69a3c81fa62e60f5c3696165a4e5e6ac4</password>
-  </Profesor>
-  <Profesor>
-    <materias>
-      <string>3</string>
-    </materias>
-    <division>3</division>
-    <nombreCompleto>3</nombreCompleto>
-    <Nomina>77de68daecd823babbb58edb1c8e14d7106e83bb</Nomina>
-    <password>77de68daecd823babbb58edb1c8e14d7106e83bb</password>
-  </Profesor>
-  <Profesor>
-    <materias>
       <string>1</string>
     </materias>
     <division>1</division>
@@ -44,5 +26,23 @@
     <nombreCompleto>3</nombreCompleto>
     <Nomina>77de68daecd823babbb58edb1c8e14d7106e83bb</Nomina>
     <password>77de68daecd823babbb58edb1c8e14d7106e83bb</password>
+  </Profesor>
+  <Profesor>
+    <materias>
+      <string>3</string>
+    </materias>
+    <division>3</division>
+    <nombreCompleto>3</nombreCompleto>
+    <Nomina>77de68daecd823babbb58edb1c8e14d7106e83bb</Nomina>
+    <password>77de68daecd823babbb58edb1c8e14d7106e83bb</password>
+  </Profesor>
+  <Profesor>
+    <materias>
+      <string>5</string>
+    </materias>
+    <division>5</division>
+    <nombreCompleto>5</nombreCompleto>
+    <Nomina>ac3478d69a3c81fa62e60f5c3696165a4e5e6ac4</Nomina>
+    <password>ac3478d69a3c81fa62e60f5c3696165a4e5e6ac4</password>
   </Profesor>
 </ArrayOfProfesor>

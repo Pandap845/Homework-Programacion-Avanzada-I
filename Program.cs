@@ -142,12 +142,14 @@ if (posicion>=0)
                 case "5":
                     Clear();
                     WriteLine("Excelente!!, ¿por cuál categoría desea organizar?");
+                    WriteLine($"{"1.-Nomina", rango}\n{"2.-Nombre",rango}\n{"3.-Division", rango}\n{"4.-Materias",rango}\n{"5.-Password", rango}");
                     string? categoria = ReadLine();
 
-                    if(categoria is not null)
+
+                    if(int.TryParse(categoria, out int intCategoria))
                     {
                         Profesor reporte = new();
-                        if(reporte.reportes(categoria, dirPro))
+                        if(reporte.reportes(intCategoria, dirPro))
                         {
                             WriteLine("Se logró");
                         }
