@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfSalon xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Salon>
+    <grupo>7F1</grupo>
+  </Salon>
+  <Salon>
+    <grupo>4A1</grupo>
+  </Salon>
+  <Salon>
+    <grupo>5S2</grupo>
+  </Salon>
+</ArrayOfSalon>

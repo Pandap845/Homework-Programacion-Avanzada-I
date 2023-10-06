@@ -23,11 +23,7 @@ namespace Software
 
 {
 
-    public class Alumno
-    {
-        string? nombreCompleto;
-
-    }
+    
 
 
     public class Login
@@ -171,7 +167,7 @@ namespace Software
         }
 
 
-        public bool jsonSerial<Almacenista>(string Name, List<Almacenista> lista)  //Implementación de la interfaz, que permite serializar en json
+        public bool jsonSerial<Almacenista>(string? Name, List<Almacenista> lista)  //Implementación de la interfaz, que permite serializar en json
         {
             if (!Path.Exists(Name) && Name is null)
             {
@@ -257,7 +253,7 @@ return true;
                 }
             }
 
-            return lista;
+            return lista ;
 
         }
 
@@ -267,7 +263,7 @@ return true;
 
     }
 
-    public class Profesor
+    public class Profesor: ISerializar
     {
 
         private readonly List<String>? materiasConocidas = new()
@@ -326,7 +322,7 @@ return true;
 
                 foreach (var profesores in lista)
                 {
-                    if (profesores == profesor)
+                    if (profesores.Nomina == profesor.Nomina) //No pueden existir profesores con nómina duplicada
                     {
                         return false;
                     }
@@ -341,7 +337,7 @@ return true;
                 }
 
                 //Volver a serializar el archivo
-
+return true;
             }
             else
             {
@@ -349,7 +345,7 @@ return true;
                 return false;
             }
 
-            return false;
+            
 
         }
 
@@ -388,8 +384,12 @@ return true;
                         break;
 
                         case 4:
-                        profesors[pos].materias.Clear();
+                        
                         profesors[pos].materias.Add(campoE);
+                        break;
+
+                        case 5:
+                        profesors[pos].password = Encrypt.getSHA1(campoE);
                         break;
 
                     }
@@ -428,7 +428,7 @@ return true;
                     return true;
                 }
                            
-
+ return true;
                 } //Verificar que exista el archivo
 
                 return false;
@@ -541,7 +541,7 @@ return true;
 
         }
 
-        public bool jsonSerial<Profesor>(string Name, List<Profesor> lista)  //Implementación de la interfaz, que permite serializar en json
+        public bool jsonSerial<Profesor>(string? Name, List<Profesor> lista)  //Implementación de la interfaz, que permite serializar en json
         {
             if ( Name is null)
             {
@@ -550,9 +550,6 @@ return true;
             }
             else
             {
-
-
-
 
                 using (StreamWriter jsonStream = File.CreateText(Name))
                 {
@@ -608,12 +605,180 @@ return true;
 
     }
 
-    public class Salon
+    public class Salon: ISerializar
     {
 
-        string? grupo;
+        public string? grupo {get; set;}
 
-        Profesor? profesor;
+        public List<Profesor>? profesor = new();
 
+         public List<Salon> xmlDeSerial<Salon>(string FilePath)
+        {
+            List<Salon>? lista = new();
+            if (Path.Exists(FilePath))
+            {
+                using (FileStream xmlLoad = File.Open(FilePath, FileMode.Open))
+                {
+                    XmlSerializer xs = new(type: lista.GetType());
+                    //Desearilzar en una lista 
+
+                    lista = xs.Deserialize(xmlLoad) as List<Salon>;
+                    
+
+                }
+            }
+
+            return lista;
+
+        }
+
+        public bool jsonSerial<Salon>(string? Name, List<Salon> lista)  //Implementación de la interfaz, que permite serializar en json
+        {
+            if ( Name is null)
+            {
+
+                return false;
+            }
+            else
+            {
+
+                using (StreamWriter jsonStream = File.CreateText(Name))
+                {
+                    //Alguien que habla Json
+                    Newtonsoft.Json.JsonSerializer jss = new();
+
+                    //Serialize
+                    jss.Serialize(jsonStream, lista);
+
+                }
+                WriteLine(File.ReadAllText(Name));
+                //EL objeto se crea dentro de los corchetes o paréntesis.
+  return true;
+            }
+          
+
+        }
+
+
+        public bool xmlSerial<Salon>(string? Name, List<Salon> lista)
+        {
+            if ( Name is null)
+            {
+                return false;
+            }
+            else
+            {
+
+
+
+                //The XML Serializer NEEDS to know what type of data is going to be seralized.
+                XmlSerializer xs = new(type: lista.GetType()); //Se le indica el //Necesita saber que tipo de dato ocupa leer
+
+
+
+                //Implicit declaration
+
+                using (FileStream stream = File.Create(Name))
+                {
+
+                    xs.Serialize(stream, lista);
+                } //Llama automáticamente el close(), crear el archivo y abrir el archivo
+
+
+                WriteLine($"\n{File.ReadAllText(Name)}");
+                   return false;
+            }
+
+         
+        }
+    }
+
+    public class Alumno: ISerializar
+    {
+        public  int registro {get; set;}
+       public string? nombreCompleto{ get; set;}
+        public string? password {get; set;}
+
+        public Salon? salon {get; set;}
+
+public List<Alumno> xmlDeSerial<Alumno>(string FilePath)
+        {
+            List<Alumno>? lista = new();
+            if (Path.Exists(FilePath))
+            {
+                using (FileStream xmlLoad = File.Open(FilePath, FileMode.Open))
+                {
+                    XmlSerializer xs = new(type: lista.GetType());
+                    //Desearilzar en una lista 
+
+                    lista = xs.Deserialize(xmlLoad) as List<Alumno>;
+                }
+            }
+
+            return lista;
+
+        }
+
+        public bool jsonSerial<Salon>(string? Name, List<Salon> lista)  //Implementación de la interfaz, que permite serializar en json
+        {
+            if ( Name is null)
+            {
+
+                return false;
+            }
+            else
+            {
+
+                using (StreamWriter jsonStream = File.CreateText(Name))
+                {
+                    //Alguien que habla Json
+                    Newtonsoft.Json.JsonSerializer jss = new();
+
+                    //Serialize
+                    jss.Serialize(jsonStream, lista);
+
+                }
+                WriteLine(File.ReadAllText(Name));
+                //EL objeto se crea dentro de los corchetes o paréntesis.
+  return true;
+            }
+          
+
+        }
+
+
+        public bool xmlSerial<Salon>(string? Name, List<Salon> lista)
+        {
+            if ( Name is null)
+            {
+                return false;
+            }
+            else
+            {
+
+
+
+                //The XML Serializer NEEDS to know what type of data is going to be seralized.
+                XmlSerializer xs = new(type: lista.GetType()); //Se le indica el //Necesita saber que tipo de dato ocupa leer
+
+
+
+                //Implicit declaration
+
+                using (FileStream stream = File.Create(Name))
+                {
+
+                    xs.Serialize(stream, lista);
+                } //Llama automáticamente el close(), crear el archivo y abrir el archivo
+
+
+                WriteLine($"\n{File.ReadAllText(Name)}");
+                   return false;
+            }
+
+         
+        }
+
+      
     }
 }

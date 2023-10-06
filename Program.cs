@@ -7,12 +7,14 @@ using static System.IO.Path; //CREATE URL's C://Pipe//documents
 using static System.Environment;
 
 using Software;
+using Microsoft.Win32;
 
 const int rango = -10;
 
 #region Inicializacion 
 
 Almacenista jefe = new();
+Salon SalonMaestro = new();
 
 List<Almacenista> almacenistasPro = new()
 {
@@ -33,12 +35,60 @@ List<Almacenista> almacenistasPro = new()
 
 };
 
+//lista de alumnos
+
+List<Salon> salons = new()
+{
+
+        new()
+        {
+            grupo = "7F1",
+            profesor = null
+        },
+
+        new()
+        {
+            grupo = "4A1",
+            profesor = null
+        },
+
+        new()
+        {
+            grupo = "5S2",
+            profesor = null
+        }
+};
+
+List<Alumno> alumnos = new()
+{
+        new()
+        {
+            registro = 20300695,
+            nombreCompleto = "Victor Emiliano",
+            salon = null,
+            password = "Caz"
+
+                
+
+       
+        }
+};
+
 string dir = Combine(CurrentDirectory, "Almacenistas.json");
 string dir2 = Combine(CurrentDirectory, "Almacenistas.xml");
+
+string dirSalonJSON = Combine(CurrentDirectory, "Salones.json");
+string dirSalonXML = Combine(CurrentDirectory, "Salones.xml");
+
+
 
 jefe.jsonSerial<Almacenista>(dir, almacenistasPro);
 
 jefe.xmlSerial<Almacenista>(dir2, almacenistasPro);
+
+SalonMaestro.xmlSerial<Salon>(dirSalonXML, salons);
+
+SalonMaestro.jsonSerial<Salon>(dirSalonJSON, salons);
 
 
 #endregion
@@ -81,13 +131,26 @@ if (posicion>=0)
 
                     if (nombre is not null && nomina is not null && materia is not null && division is not null && passwordd is not null)
                     {
+
+                        if(passwordd.Length>8)
+                        {
+
+                        
                         Profesor profesor = new(nombre, nomina, passwordd, nomina, division);
+                          profesor.Agregar(profesor);
+                        }
+                        else{
+
+                            WriteLine($"Contraseña menor a 8. Repita");
+                        }
 
 
-                        profesor.Agregar(profesor);
+                      
+
+                        //Por si decide agregar más de un 
 
                     }
-                    WriteLine($"{""}");
+                    WriteLine($"Agregue valores a cada uno");
                     break;
 
 
@@ -118,6 +181,9 @@ if (posicion>=0)
 
                     WriteLine("Muy bien!!, ¿qué profesor desea editar (ingrese su nómina): ");
                     nomina = ReadLine();
+
+
+
 
                     break;
 
