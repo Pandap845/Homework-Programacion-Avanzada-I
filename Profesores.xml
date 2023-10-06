@@ -9,4 +9,22 @@
     <Nomina>fbea44e9747069530bc2c81132a6820c3859eb92</Nomina>
     <password>e7df733cbacaabbd29e7806c1bbdb30ea8164b63</password>
   </Profesor>
+  <Profesor>
+    <materias>
+      <string>333</string>
+    </materias>
+    <division>66</division>
+    <nombreCompleto>Paco</nombreCompleto>
+    <Nomina>43814346e21444aaf4f70841bf7ed5ae93f55a9d</Nomina>
+    <password>43814346e21444aaf4f70841bf7ed5ae93f55a9d</password>
+  </Profesor>
+  <Profesor>
+    <materias>
+      <string>67</string>
+    </materias>
+    <division>78</division>
+    <nombreCompleto>Roberto</nombreCompleto>
+    <Nomina>4d89d294cd4ca9f2ca57dc24a53ffb3ef5303122</Nomina>
+    <password>cfa1150f1787186742a9a884b73a43d8cf219f9b</password>
+  </Profesor>
 </ArrayOfProfesor>

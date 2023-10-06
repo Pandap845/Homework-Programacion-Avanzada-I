@@ -439,6 +439,58 @@ namespace Software
                 
         }
 
+
+        public bool reportes(string? campoOrd, string? FilePath)
+        {
+
+            if(Path.Exists(FilePath))
+            {
+            Profesor profesor = new();
+            List<Profesor> profesors = profesor.xmlDeSerial<Profesor>(FilePath);
+        
+                switch(campoOrd)
+                {
+
+                    case "nomina":
+                    profesors.OrderBy(Profesor => Profesor.Nomina);
+
+                    break;
+
+                    case "nombre":
+                     profesors.OrderBy(Profesor => Profesor.nombreCompleto);
+                    break;
+
+                    case "division":
+                      profesors.OrderBy(Profesor => Profesor.division);
+                    break;
+
+                    case "materia":
+                      profesors.OrderBy(Profesor => Profesor.materias);
+                    break;
+
+                    case "password":
+                    profesors.OrderBy(Profesor => Profesor.password);
+                    break;
+
+
+                }
+
+            //Crear los reportes
+
+                string reporteJSON = Combine(CurrentDirectory, "reporte.json");
+                string reporteXML = Combine(CurrentDirectory, "reporte.xml");
+
+                    if(jsonSerial<Profesor>(reporteJSON, profesors) && xmlSerial<Profesor>(reporteXML, profesors))
+                {
+                    //Si se logró convertir, entonces.
+                    return true;
+                }
+
+            }
+
+            return false;
+        }
+
         //Operaciones con XML y JSON
 
         public List<Profesor> xmlDeSerial<Profesor>(string FilePath)
@@ -452,7 +504,7 @@ namespace Software
                     //Desearilzar en una lista 
 
                     lista = xs.Deserialize(xmlLoad) as List<Profesor>;
-
+                    
 
                 }
             }
