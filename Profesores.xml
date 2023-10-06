@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfProfesor xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Profesor>
+    <materias>
+      <string>111</string>
+    </materias>
+    <division>Casa</division>
+    <nombreCompleto>Victor</nombreCompleto>
+    <Nomina>6216f8a75fd5bb3d5f22b6f9958cdede3fc086c2</Nomina>
+    <password>6216f8a75fd5bb3d5f22b6f9958cdede3fc086c2</password>
+  </Profesor>
+  <Profesor>
+    <materias>
+      <string>28392</string>
+    </materias>
+    <division>tu</division>
+    <nombreCompleto>Uriel</nombreCompleto>
+    <Nomina>fbea44e9747069530bc2c81132a6820c3859eb92</Nomina>
+    <password>e7df733cbacaabbd29e7806c1bbdb30ea8164b63</password>
+  </Profesor>
+</ArrayOfProfesor>

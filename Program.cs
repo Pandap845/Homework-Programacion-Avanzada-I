@@ -8,6 +8,8 @@ using static System.Environment;
 
 using Software;
 
+const int rango = -10;
+
 #region Inicializacion 
 
 Almacenista jefe = new();
@@ -44,8 +46,81 @@ jefe.xmlSerial<Almacenista>(dir2, almacenistasPro);
 
 //Tiene que verificar que sea xml, que exista, que tenga algo, etc.
 if(Login.ingreso(dir2))
-{
-   
+{ string? eleccion = "";
+
+    while (eleccion != "6" )
+    {
+        WriteLine("\n\n\n Congratulations. Ahora, seleccione que desea hacer:");
+        WriteLine($"{"1.-Agregar profesor", rango}\n{"2.-Eliminar profesor", rango}");
+        WriteLine($"{"3.-Editar profesor", rango}\n{"4.-Cambiar contraseña propia"}\n{"5.-Reportes", rango}\n{"6.-Salir", rango} ");
+         eleccion =  ReadLine();
+
+        
+      
+        if(eleccion is not null)
+        {
+
+            switch (eleccion)
+            {
+                case "1":
+                        Clear();
+                        WriteLine("Muy bien!!, ingrese la información del profesor:");
+                        Write($"{"Nombre Completo:", rango}");
+                        string? nombre = ReadLine();
+                          Write($"{"Password:", rango}");            
+                        string? passwordd = ReadLine();
+                        Write($"{"Nomina:", rango}");            
+                        string? nomina = ReadLine();
+                        Write($"{"materia:",rango}");
+                        string? materia = ReadLine();
+                        Write($"{"Division:", rango}");
+                        string? division = ReadLine();
+
+                        if(nombre is not null && nomina is not null && materia is not null && division is not null && passwordd is not null )
+                        {
+                        Profesor profesor = new(nombre, nomina, passwordd, nomina, division);
+
+                            string dir3 = Combine(CurrentDirectory, "Profesores.xml");
+                            profesor.Agregar(profesor);
+
+                        }
+                        WriteLine($"{""}");
+                        break;
+
+
+                case "2":
+                    Clear();
+                    while(true)
+                    {
+                                //Editar un campo de algún profesor.
+                        WriteLine("Muy bien!!, ¿qué profesor desea editar (ingrese su nómina): ");
+                        string? nomina2 = ReadLine();
+
+                          
+
+                    }
+                    break;
+
+
+
+                case "3":
+
+                case "4":
+
+                case "5":
+
+                case "6":
+                    WriteLine("Ciao");
+                    break;
+
+                default:
+
+                WriteLine("Error 404: not found");
+                break;
+            }
+        }
+    }
+        
 }
 else{
 
