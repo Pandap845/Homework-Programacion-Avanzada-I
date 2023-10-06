@@ -2,15 +2,6 @@
 <ArrayOfProfesor xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Profesor>
     <materias>
-      <string>111</string>
-    </materias>
-    <division>Casa</division>
-    <nombreCompleto>Victor</nombreCompleto>
-    <Nomina>6216f8a75fd5bb3d5f22b6f9958cdede3fc086c2</Nomina>
-    <password>6216f8a75fd5bb3d5f22b6f9958cdede3fc086c2</password>
-  </Profesor>
-  <Profesor>
-    <materias>
       <string>28392</string>
     </materias>
     <division>tu</division>

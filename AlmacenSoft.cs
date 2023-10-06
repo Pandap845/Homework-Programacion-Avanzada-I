@@ -328,9 +328,116 @@ namespace Software
         }
 
 
+//Editar cualquier campo de un profesor
+        public bool Editar(string? Nomina,string? campoE, int? indexCampoE, string? FilePath)
+        {
+                List<Profesor> profesors = new();
+                Profesor profe= new();
+
+            if(Path.Exists(FilePath))
+            {
+            if(Nomina is not null && campoE is not null && indexCampoE is not null)
+            {
+                  int pos = buscadorProfesor(Nomina,FilePath);
+
+                  if(pos == -1 ){ return false;}
+                  //En caso contrario, quiere decir que encontró el profesor
+
+                    profesors = profe.xmlDeSerial<Profesor>(FilePath);
+                   
+
+                    //Ahora, determinar el campo que se va a modificar
+                    switch(indexCampoE)
+                    {
+                        case 1:
+                        profesors[pos].nombreCompleto = campoE;
+                        break;
+
+                        case 2:
+                        profesors[pos].Nomina = Encrypt.getSHA1(campoE);
+                        break;
+
+                        case 3:
+                        profesors[pos].division = campoE;
+                        break;
+
+                        case 4:
+                        profesors[pos].materias.Clear();
+                        profesors[pos].materias.Add(campoE);
+                        break;
+
+                    }
+                   
+            }
+            }
+
+            return false;
+        }
+
+
+        //Metodo que permite eliminar un profesor por su nómina encriptada
+
+        public bool Eliminar(string? Nomina )
+        {
+                List<Profesor> profesors = new();
+                Profesor profesor = new();
+
+                  string dirJSON = Combine(CurrentDirectory, "Profesores.json");
+                string dirXML = Combine(CurrentDirectory, "Profesores.xml");
+
+                if(Path.Exists(dirXML) && Nomina is not null)
+                {
+                        int pos = buscadorProfesor(Nomina, dirXML); //Encontrar la posición del profesor
+
+                            if(pos == -1){ return false;} //NO existe el elemento
+
+                        profesors = profesor.xmlDeSerial<Profesor>(dirXML); //Deserializar
+
+                            profesors.RemoveAt(pos);
+
+                            
+                if(jsonSerial<Profesor>(dirJSON, profesors) && xmlSerial<Profesor>(dirXML, profesors))
+                {
+                    //Si se logró convertir, entonces.
+                    return true;
+                }
+                           
+
+                } //Verificar que exista el archivo
+
+                return false;
+        }
+
+
         //metodo que permite buscar profesor con base en su nómina
 
-      
+        static public int buscadorProfesor(string? Nomina, string? FilePath)
+        {
+                List<Profesor> lista = new();
+                Profesor profesor = new();
+                int posicion=-1;
+                int conteo=0;
+                
+                if(Path.Exists(FilePath) && Nomina is not null )
+                {
+                    //Si este el archivo, entonces:
+                    lista = profesor.xmlDeSerial<Profesor>(FilePath);
+                    
+                    foreach (var profesores in lista)
+                    {
+                        if (profesores.Nomina == Encrypt.getSHA1(Nomina))
+                        {
+                                posicion= conteo;
+                                return posicion;
+                        }   
+                        conteo++;
+                    }
+                }
+                
+                return posicion;
+                
+                
+        }
 
         //Operaciones con XML y JSON
 

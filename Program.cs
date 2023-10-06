@@ -80,7 +80,7 @@ if(Login.ingreso(dir2))
                         {
                         Profesor profesor = new(nombre, nomina, passwordd, nomina, division);
 
-                            string dir3 = Combine(CurrentDirectory, "Profesores.xml");
+                           
                             profesor.Agregar(profesor);
 
                         }
@@ -90,20 +90,31 @@ if(Login.ingreso(dir2))
 
                 case "2":
                     Clear();
-                    while(true)
-                    {
+                   
                                 //Editar un campo de algún profesor.
-                        WriteLine("Muy bien!!, ¿qué profesor desea editar (ingrese su nómina): ");
-                        string? nomina2 = ReadLine();
+                        WriteLine("Muy bien!!, ¿qué profesor desea matar (ingrese su nómina)?: ");
+                        nomina = ReadLine();
 
-                          
+                          Profesor pro = new();
+                          if(pro.Eliminar(nomina))
+                          {
+                            WriteLine("Se pudo eliminar");
+                          }
+                          else{
+                            WriteLine("No se pudo");
+                          }
 
-                    }
+                    
                     break;
 
 
 
                 case "3":
+
+     WriteLine("Muy bien!!, ¿qué profesor desea editar (ingrese su nómina): ");
+                         nomina = ReadLine();
+
+                break;
 
                 case "4":
 
