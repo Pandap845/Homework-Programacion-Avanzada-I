@@ -28,9 +28,9 @@ namespace Software
     {
 
 
-        static public bool ingreso(string? FilePath)
+        static public int ingreso(string? FilePath)
         {
-
+                    int  conteo=0;
             Almacenista almacenista = new();
 
             List<Almacenista> lista;
@@ -53,7 +53,7 @@ namespace Software
                 }
                 else
                 {
-                    return false;
+                    return -1;
                 }
 
                 //deserializar el archivo xml que tiene a los almacenistas.
@@ -65,19 +65,22 @@ namespace Software
                 {
                     if (cuenta.password == contraAlmacenista && cuenta.nombreCompleto == NombreAlmacenista)
                     {
-                        return true;
+
+                        return conteo;
                     }
+
+                    conteo++;
 
                 }
 
-                return false;
+                return -1;
 
 
             }
             else
             {
 
-                return false;
+                return -1;
 
             }
 
@@ -124,9 +127,9 @@ namespace Software
     public interface ISerializar
     {
 
-        public int jsonSerial<T>(string? Name, List<T> lista); //Interfaz
+        public bool jsonSerial<T>(string? Name, List<T> lista); //Interfaz
 
-        public int xmlSerial<T>(string? Name, List<T> lista);
+        public bool xmlSerial<T>(string? Name, List<T> lista);
 
 
         public List<T> xmlDeSerial<T>(string FilePath);
@@ -141,15 +144,33 @@ namespace Software
         public string? password { get; set; }  //Contraseña del almacenista
 
 
+        public bool editarPassword(string? password, int posAlmacenista, string? FilePath )
+        {
+
+            if(Path.Exists(FilePath) && password is not null)
+            {
+                Almacenista almacenista= new();
+                List<Almacenista> almacenistas = almacenista.xmlDeSerial<Almacenista>(FilePath);
+
+                    almacenistas[posAlmacenista].password = Encrypt.getSHA1(password);
+
+                    if(almacenista.xmlSerial<Almacenista>(FilePath, almacenistas))
+                    {
+                            return true;
+                    }   
+    
+            }
+            
+            return false;
+        }
 
 
-
-        public int jsonSerial<Almacenista>(string Name, List<Almacenista> lista)  //Implementación de la interfaz, que permite serializar en json
+        public bool jsonSerial<Almacenista>(string Name, List<Almacenista> lista)  //Implementación de la interfaz, que permite serializar en json
         {
             if (!Path.Exists(Name) && Name is null)
             {
 
-                return 0;
+                return false;
             }
             else
             {
@@ -171,16 +192,16 @@ namespace Software
                 //EL objeto se crea dentro de los corchetes o paréntesis.
 
             }
-            return 1;
+            return true;
 
         }
 
 
-        public int xmlSerial<Almacenista>(string? Name, List<Almacenista> lista)
+        public bool xmlSerial<Almacenista>(string? Name, List<Almacenista> lista)
         {
             if (!Path.Exists(Name) && Name is null)
             {
-                return 0;
+                return false;
             }
             else
             {
@@ -207,10 +228,10 @@ namespace Software
 
                 WriteLine($"\n{File.ReadAllText(Name)}");
 
-
+return true;
             }
 
-            return 0;
+            
         }
 
 

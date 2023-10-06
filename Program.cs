@@ -45,7 +45,9 @@ jefe.xmlSerial<Almacenista>(dir2, almacenistasPro);
 
 string dirPro = Combine(CurrentDirectory, "Profesores.xml");
 //Tiene que verificar que sea xml, que exista, que tenga algo, etc.
-if (Login.ingreso(dir2))
+
+int posicion= Login.ingreso(dir2);
+if (posicion>=0)
 {
     string? eleccion = "";
 
@@ -112,6 +114,7 @@ if (Login.ingreso(dir2))
 
 
                 case "3":
+                Clear();
 
                     WriteLine("Muy bien!!, ¿qué profesor desea editar (ingrese su nómina): ");
                     nomina = ReadLine();
@@ -119,6 +122,22 @@ if (Login.ingreso(dir2))
                     break;
 
                 case "4":
+                Clear();
+                Write("Cambiar password propia: ");
+                    passwordd = ReadLine();
+
+                    Almacenista alma = new();
+                   if( alma.editarPassword(passwordd, posicion, dir2))
+                   {
+
+                    WriteLine("Se logró");
+                   }
+                   else{
+
+                    WriteLine("No se logró");
+                   }
+
+                break;
 
                 case "5":
                     Clear();
