@@ -386,11 +386,17 @@ return true;
                         break;
 
                         case 3:
+                        if(DivisionesConocidas.Contains(campoE))
+                        {
                         profesors[pos].division = campoE;
+                        }
+                        else{
+                             profesors[pos].division = "Error";
+                        }
                         break;
 
                         case 4:
-                        
+                        profesors[pos].materias.Clear();
                         profesors[pos].materias.Add(campoE);
                         break;
 
@@ -623,12 +629,32 @@ return true;
     public class Salon: ISerializar
     {
 
+        public string? nombre {get; set;}
         public string? grupo {get; set;}
 
         public List<Profesor>? profesor = new();
 
+        private readonly Dictionary<string,List<string>> SalonMateria = new()
+        {
+                {"Taller de Electronica", new(){"Temas de Electronica I", "Temas de Electronica II", "Interfaces"}},
+                {"Salon Digitales I", new(){"Sistemas Embebidos I", "Sistemas Embebidos II", "Sistemas Digitales I"}},
+                 {"Salon Digitales II", new(){"Sistemas Embebidos I", "Sistemas Embebidos II", "Sistemas Digitales I"}},
+                
+        };
+
+
+
+    public bool vincular()
+    {
+
+
+        return false;
+    }
+    
+
          public List<Salon> xmlDeSerial<Salon>(string FilePath)
         {
+            
             List<Salon>? lista = new();
             if (Path.Exists(FilePath))
             {

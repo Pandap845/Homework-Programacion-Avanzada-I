@@ -8,6 +8,7 @@ using static System.Environment;
 
 using Software;
 using Microsoft.Win32;
+using System.Reflection.Emit;
 
 const int rango = -10;
 
@@ -42,18 +43,21 @@ List<Salon> salons = new()
 
         new()
         {
+            nombre = "Taller de Electronica",
             grupo = "7F1",
             profesor = null
         },
 
         new()
         {
+            nombre = "Salon Digitales I",
             grupo = "4A1",
             profesor = null
         },
 
         new()
         {
+            nombre = "Salon Digitales II",
             grupo = "5S2",
             profesor = null
         }
@@ -131,27 +135,27 @@ if (posicion >= 0)
 
                     if (nombre is not null && nomina is not null && materia is not null && division is not null && passwordd is not null)
                     {
-                       
+
 
                         if (passwordd.Length >= 8)
+                        {
+
+
+                            Profesor profesor = new(nombre, nomina, passwordd, materia, division);
+
+
+                            if (profesor.division == "Error")
                             {
+                                WriteLine("Vuelva a escribir la división (Digitales, Electronica)");
 
+                            }
+                            else
+                            {
+                                string? opcion = "1";
 
-                                Profesor profesor = new(nombre, nomina, passwordd, materia, division);
-
-
-                                if (profesor.division == "Error")
+                                while (opcion == "1")
                                 {
-                                    WriteLine("Vuelva a escribir la división (Digitales, Electronica)");
 
-                                }
-                                else
-                                {
-                                    string? opcion = "1";
-
-                                    while(opcion == "1")
-                                    {
-                                    
 
                                     WriteLine("¿Desea agregar más materias?");
                                     WriteLine("1.-Si\n2.-No");
@@ -165,35 +169,35 @@ if (posicion >= 0)
                                         profesor.materias.Add(materia);
                                     }
 
-                                    }
-
-                                    profesor.Agregar(profesor);
-                                    WriteLine("LISTOOO");
-
                                 }
 
+                                profesor.Agregar(profesor);
+                                WriteLine("LISTOOO");
 
                             }
-                            else
-                            {
 
-                                while(passwordd.Length<8)
-                                {
+
+                        }
+                        else
+                        {
+
+                            while (passwordd.Length < 8)
+                            {
 
                                 WriteLine($"Contraseña menor a 8. Repita");
                                 Write("Escribir:");
                                 passwordd = ReadLine();
-                                }
                             }
-
                         }
 
-                           
+                    }
 
-                        //Por si decide agregar más de un 
 
-                    
-                   
+
+                    //Por si decide agregar más de un 
+
+
+
                     break;
 
 
@@ -226,6 +230,91 @@ if (posicion >= 0)
 
                     WriteLine("Muy bien!!, ¿qué profesor desea editar (ingrese su nómina): ");
                     nomina = ReadLine();
+
+
+                    WriteLine("\n  ¿qué campo va a editar?");
+                    WriteLine("1.-Nombre\n2.-Nomina\n3.-Division\n4.-Materia\n5.-Password\n6.-Nada");
+                    string indexCampo = ReadLine();
+                    string? campoE = "";
+
+
+                    if (int.TryParse(indexCampo, out int indice))
+                    {
+
+                       
+                            switch (indice)
+                            {
+
+                                case 1:
+                                    Clear();
+                                    WriteLine("Excelente!, usted ha decido el nombre");
+                                    Write("Ingrese el nuevo nombre: ");
+                                    campoE = ReadLine();
+
+
+                                    break;
+
+                                case 2:
+                                    Clear();
+                                    WriteLine("Excelente!, usted ha decido la nómina");
+                                    Write("Ingrese la nueva nómina ");
+                                    campoE = ReadLine();
+
+                                    break;
+
+                                case 3:
+                                    Clear();
+                                      WriteLine("Excelente!, usted ha decido la division");
+                                    Write("Ingrese la nueva division ");
+                                    campoE = ReadLine();
+                                   
+                                    break;
+
+                                case 4:
+                                    Clear();
+                                     WriteLine("Excelente!, usted ha decido las Materias (para facilidad, se borran las anteriores)");
+                                    Write("Ingrese la nueva materia");
+                                    campoE = ReadLine();
+                                  
+                                    break;
+
+                                case 5:
+                                    Clear();
+                                    WriteLine("Excelente!, usted ha decido la contraseña");
+                                    Write("Ingrese la nueva contraseña ");
+                                    campoE = ReadLine();
+                                    break;
+
+                                    case 6:
+
+                                    WriteLine("Adios causa");
+                                    break;
+
+                                default:
+                                    WriteLine("No existe");
+
+                                    break;
+                            }
+                        
+                        ///Entonces, se realizna los cambios
+                        /// 
+                        /// 
+                        /// 
+                        if(indice != 6)
+                        {
+                        Profesor profesor = new();
+                        profesor.Editar(nomina, campoE, indice, dirPro);
+                        }
+
+
+
+                    }
+                    else
+                    {
+
+                        WriteLine("No ingresó un numero feo");
+                    }
+
 
 
 

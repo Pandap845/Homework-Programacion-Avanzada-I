@@ -64,4 +64,13 @@
     <Nomina>6216f8a75fd5bb3d5f22b6f9958cdede3fc086c2</Nomina>
     <password>c699ffa3c54e32b7fbb7e8c7fcd53cab7549d12d</password>
   </Profesor>
+  <Profesor>
+    <materias>
+      <string>a</string>
+    </materias>
+    <division>Error</division>
+    <nombreCompleto>Richard</nombreCompleto>
+    <Nomina>eaa67f3a93d0acb08d8a5e8ff9866f51983b3c3b</Nomina>
+    <password>f7c3bc1d808e04732adf679965ccc34ca7ae3441</password>
+  </Profesor>
 </ArrayOfProfesor>

@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ArrayOfSalon xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Salon>
+    <nombre>Taller de Electronica</nombre>
     <grupo>7F1</grupo>
   </Salon>
   <Salon>
+    <nombre>Salon Digitales I</nombre>
     <grupo>4A1</grupo>
   </Salon>
   <Salon>
+    <nombre>Salon Digitales II</nombre>
     <grupo>5S2</grupo>
   </Salon>
 </ArrayOfSalon>
