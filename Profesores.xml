@@ -45,4 +45,23 @@
     <Nomina>77de68daecd823babbb58edb1c8e14d7106e83bb</Nomina>
     <password>77de68daecd823babbb58edb1c8e14d7106e83bb</password>
   </Profesor>
+  <Profesor>
+    <materias>
+      <string>2121</string>
+    </materias>
+    <division>Digitales</division>
+    <nombreCompleto>Victor</nombreCompleto>
+    <Nomina>965b38734b55904903e3f2e1589b99b7697a4546</Nomina>
+    <password>c699ffa3c54e32b7fbb7e8c7fcd53cab7549d12d</password>
+  </Profesor>
+  <Profesor>
+    <materias>
+      <string>Digitales</string>
+      <string>Mate</string>
+    </materias>
+    <division>Digitales</division>
+    <nombreCompleto>Victor</nombreCompleto>
+    <Nomina>6216f8a75fd5bb3d5f22b6f9958cdede3fc086c2</Nomina>
+    <password>c699ffa3c54e32b7fbb7e8c7fcd53cab7549d12d</password>
+  </Profesor>
 </ArrayOfProfesor>

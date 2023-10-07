@@ -266,11 +266,7 @@ return true;
     public class Profesor: ISerializar
     {
 
-        private readonly List<String>? materiasConocidas = new()
-        {
-                        "Sistemas Digitales", "Sistemas Embebidos I", "Sistemas Embebidos II", "Interfaces", "Electronica I",
-                        "Electronica II", "Temas de Electronica I", "Temas de Electronica II"
-        };
+       
 
         private readonly List<String>? DivisionesConocidas = new()
         {
@@ -299,7 +295,15 @@ return true;
                     this.Nomina = Encrypt.getSHA1(Nomina);
                     this.password = Encrypt.getSHA1(password);
                     this.materias.Add(materia);
+
+                    if(DivisionesConocidas.Contains(division))
+                    {
                     this.division = division;
+                    }
+                    else
+                    {
+                        this.division = "error";
+                    }
 
         }
 
@@ -355,6 +359,8 @@ return true;
         {
                 List<Profesor> profesors = new();
                 Profesor profe= new();
+                  string dirJSON = Combine(CurrentDirectory, "Profesores.json");
+              
 
             if(Path.Exists(FilePath))
             {
@@ -392,6 +398,15 @@ return true;
                         profesors[pos].password = Encrypt.getSHA1(campoE);
                         break;
 
+                    }
+
+
+                    if(profe.xmlSerial(FilePath, profesors) && profe.jsonSerial(dirJSON, profesors))
+                    {
+                        return true;
+                    }
+                    else{
+                        return false;
                     }
                    
             }

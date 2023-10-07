@@ -68,9 +68,9 @@ List<Alumno> alumnos = new()
             salon = null,
             password = "Caz"
 
-                
 
-       
+
+
         }
 };
 
@@ -96,8 +96,8 @@ SalonMaestro.jsonSerial<Salon>(dirSalonJSON, salons);
 string dirPro = Combine(CurrentDirectory, "Profesores.xml");
 //Tiene que verificar que sea xml, que exista, que tenga algo, etc.
 
-int posicion= Login.ingreso(dir2);
-if (posicion>=0)
+int posicion = Login.ingreso(dir2);
+if (posicion >= 0)
 {
     string? eleccion = "";
 
@@ -131,26 +131,69 @@ if (posicion>=0)
 
                     if (nombre is not null && nomina is not null && materia is not null && division is not null && passwordd is not null)
                     {
+                       
 
-                        if(passwordd.Length>8)
-                        {
+                        if (passwordd.Length >= 8)
+                            {
 
-                        
-                        Profesor profesor = new(nombre, nomina, passwordd, nomina, division);
-                          profesor.Agregar(profesor);
+
+                                Profesor profesor = new(nombre, nomina, passwordd, materia, division);
+
+
+                                if (profesor.division == "Error")
+                                {
+                                    WriteLine("Vuelva a escribir la división (Digitales, Electronica)");
+
+                                }
+                                else
+                                {
+                                    string? opcion = "1";
+
+                                    while(opcion == "1")
+                                    {
+                                    
+
+                                    WriteLine("¿Desea agregar más materias?");
+                                    WriteLine("1.-Si\n2.-No");
+                                    opcion = ReadLine();
+
+                                    if (opcion == "1")
+                                    {
+                                        WriteLine("Escriba la materia:");
+                                        materia = ReadLine();
+
+                                        profesor.materias.Add(materia);
+                                    }
+
+                                    }
+
+                                    profesor.Agregar(profesor);
+                                    WriteLine("LISTOOO");
+
+                                }
+
+
+                            }
+                            else
+                            {
+
+                                while(passwordd.Length<8)
+                                {
+
+                                WriteLine($"Contraseña menor a 8. Repita");
+                                Write("Escribir:");
+                                passwordd = ReadLine();
+                                }
+                            }
+
                         }
-                        else{
 
-                            WriteLine($"Contraseña menor a 8. Repita");
-                        }
-
-
-                      
+                           
 
                         //Por si decide agregar más de un 
 
-                    }
-                    WriteLine($"Agregue valores a cada uno");
+                    
+                   
                     break;
 
 
@@ -177,7 +220,9 @@ if (posicion>=0)
 
 
                 case "3":
-                Clear();
+                    Clear();
+
+
 
                     WriteLine("Muy bien!!, ¿qué profesor desea editar (ingrese su nómina): ");
                     nomina = ReadLine();
@@ -185,37 +230,40 @@ if (posicion>=0)
 
 
 
+
+
                     break;
 
                 case "4":
-                Clear();
-                Write("Cambiar password propia: ");
+                    Clear();
+                    Write("Cambiar password propia: ");
                     passwordd = ReadLine();
 
                     Almacenista alma = new();
-                   if( alma.editarPassword(passwordd, posicion, dir2))
-                   {
+                    if (alma.editarPassword(passwordd, posicion, dir2))
+                    {
 
-                    WriteLine("Se logró");
-                   }
-                   else{
+                        WriteLine("Se logró");
+                    }
+                    else
+                    {
 
-                    WriteLine("No se logró");
-                   }
+                        WriteLine("No se logró");
+                    }
 
-                break;
+                    break;
 
                 case "5":
                     Clear();
                     WriteLine("Excelente!!, ¿por cuál categoría desea organizar?");
-                    WriteLine($"{"1.-Nomina", rango}\n{"2.-Nombre",rango}\n{"3.-Division", rango}\n{"4.-Materias",rango}\n{"5.-Password", rango}");
+                    WriteLine($"{"1.-Nomina",rango}\n{"2.-Nombre",rango}\n{"3.-Division",rango}\n{"4.-Materias",rango}\n{"5.-Password",rango}");
                     string? categoria = ReadLine();
 
 
-                    if(int.TryParse(categoria, out int intCategoria))
+                    if (int.TryParse(categoria, out int intCategoria))
                     {
                         Profesor reporte = new();
-                        if(reporte.reportes(intCategoria, dirPro))
+                        if (reporte.reportes(intCategoria, dirPro))
                         {
                             WriteLine("Se logró");
                         }
