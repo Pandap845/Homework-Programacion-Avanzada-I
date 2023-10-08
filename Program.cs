@@ -29,7 +29,7 @@ List<Almacenista> almacenistasPro = new()
             new()
             {
                 nombreCompleto = "Paco",
-                password = Encrypt.getSHA1("321")
+                password = Encrypt.getSHA1("123456789A")
 
 
             }
@@ -41,12 +41,20 @@ List<Almacenista> almacenistasPro = new()
 List<Salon> salons = new()
 {
 
+
         new()
         {
-            nombre = "Taller de Electronica",
+            nombre = "Taller de Electronica I",
             grupo = "7F1",
             profesor = null
         },
+    new()
+        {
+            nombre = "Taller de Electronica II",
+            grupo = "7F1",
+            profesor = null
+        },
+
 
         new()
         {
@@ -70,7 +78,7 @@ List<Alumno> alumnos = new()
             registro = 20300695,
             nombreCompleto = "Victor Emiliano",
             salon = null,
-            password = "Caz"
+            password = "12345678A"
 
 
 
@@ -143,36 +151,49 @@ if (posicion >= 0)
 
                             Profesor profesor = new(nombre, nomina, passwordd, materia, division);
 
-
-                            if (profesor.division == "Error")
+                            if (profesor.materias.Contains("Error"))
                             {
-                                WriteLine("Vuelva a escribir la división (Digitales, Electronica)");
-
+                                WriteLine("Vuelve a intentar. La materia no existe");
                             }
                             else
                             {
-                                string? opcion = "1";
 
-                                while (opcion == "1")
+
+                                if (profesor.division == "Error")
                                 {
-
-
-                                    WriteLine("¿Desea agregar más materias?");
-                                    WriteLine("1.-Si\n2.-No");
-                                    opcion = ReadLine();
-
-                                    if (opcion == "1")
-                                    {
-                                        WriteLine("Escriba la materia:");
-                                        materia = ReadLine();
-
-                                        profesor.materias.Add(materia);
-                                    }
+                                    WriteLine("Vuelva a escribir la división (Digitales, Electronica)");
 
                                 }
+                                else
+                                {
+                                    string? opcion = "1";
 
-                                profesor.Agregar(profesor);
-                                WriteLine("LISTOOO");
+                                    while (opcion == "1")
+                                    {
+
+
+                                        WriteLine("¿Desea agregar más materias?");
+                                        WriteLine("1.-Si\n2.-No");
+                                        opcion = ReadLine();
+
+                                        if (opcion == "1")
+                                        {
+                                            WriteLine("Escriba la materia:");
+                                            materia = ReadLine();
+
+
+                                            profesor.materias.Add(materia);
+                                        }
+
+                                    }
+
+                                    if (profesor.Agregar(profesor)) 
+                                    {
+                                        WriteLine("LISTOOO");
+                                    }
+                                    WriteLine("Duplicado");
+
+                                }
 
                             }
 
@@ -241,69 +262,69 @@ if (posicion >= 0)
                     if (int.TryParse(indexCampo, out int indice))
                     {
 
-                       
-                            switch (indice)
-                            {
 
-                                case 1:
-                                    Clear();
-                                    WriteLine("Excelente!, usted ha decido el nombre");
-                                    Write("Ingrese el nuevo nombre: ");
-                                    campoE = ReadLine();
+                        switch (indice)
+                        {
+
+                            case 1:
+                                Clear();
+                                WriteLine("Excelente!, usted ha decido el nombre");
+                                Write("Ingrese el nuevo nombre: ");
+                                campoE = ReadLine();
 
 
-                                    break;
+                                break;
 
-                                case 2:
-                                    Clear();
-                                    WriteLine("Excelente!, usted ha decido la nómina");
-                                    Write("Ingrese la nueva nómina ");
-                                    campoE = ReadLine();
+                            case 2:
+                                Clear();
+                                WriteLine("Excelente!, usted ha decido la nómina");
+                                Write("Ingrese la nueva nómina ");
+                                campoE = ReadLine();
 
-                                    break;
+                                break;
 
-                                case 3:
-                                    Clear();
-                                      WriteLine("Excelente!, usted ha decido la division");
-                                    Write("Ingrese la nueva division ");
-                                    campoE = ReadLine();
-                                   
-                                    break;
+                            case 3:
+                                Clear();
+                                WriteLine("Excelente!, usted ha decido la division");
+                                Write("Ingrese la nueva division (Digitales, Electronica) ");
+                                campoE = ReadLine();
 
-                                case 4:
-                                    Clear();
-                                     WriteLine("Excelente!, usted ha decido las Materias (para facilidad, se borran las anteriores)");
-                                    Write("Ingrese la nueva materia");
-                                    campoE = ReadLine();
-                                  
-                                    break;
+                                break;
 
-                                case 5:
-                                    Clear();
-                                    WriteLine("Excelente!, usted ha decido la contraseña");
-                                    Write("Ingrese la nueva contraseña ");
-                                    campoE = ReadLine();
-                                    break;
+                            case 4:
+                                Clear();
+                                WriteLine("Excelente!, usted ha decido las Materias (para facilidad, se borran las anteriores)");
+                                Write("Ingrese la nueva materia");
+                                campoE = ReadLine();
 
-                                    case 6:
+                                break;
 
-                                    WriteLine("Adios causa");
-                                    break;
+                            case 5:
+                                Clear();
+                                WriteLine("Excelente!, usted ha decido la contraseña");
+                                Write("Ingrese la nueva contraseña ");
+                                campoE = ReadLine();
+                                break;
 
-                                default:
-                                    WriteLine("No existe");
+                            case 6:
 
-                                    break;
-                            }
-                        
+                                WriteLine("Adios causa");
+                                break;
+
+                            default:
+                                WriteLine("No existe");
+
+                                break;
+                        }
+
                         ///Entonces, se realizna los cambios
                         /// 
                         /// 
                         /// 
-                        if(indice != 6)
+                        if (indice != 6)
                         {
-                        Profesor profesor = new();
-                        profesor.Editar(nomina, campoE, indice, dirPro);
+                            Profesor profesor = new();
+                            profesor.Editar(nomina, campoE, indice, dirPro);
                         }
 
 
@@ -312,7 +333,7 @@ if (posicion >= 0)
                     else
                     {
 
-                        WriteLine("No ingresó un numero feo");
+                        WriteLine("No ingresó un numero, feo");
                     }
 
 

@@ -23,7 +23,7 @@ namespace Software
 
 {
 
-    
+
 
 
     public class Login
@@ -32,7 +32,7 @@ namespace Software
 
         static public int ingreso(string? FilePath)
         {
-                    int  conteo=0;
+            int conteo = 0;
             Almacenista almacenista = new();
 
             List<Almacenista> lista;
@@ -146,23 +146,23 @@ namespace Software
         public string? password { get; set; }  //Contraseña del almacenista
 
 
-        public bool editarPassword(string? password, int posAlmacenista, string? FilePath )
+        public bool editarPassword(string? password, int posAlmacenista, string? FilePath)
         {
 
-            if(Path.Exists(FilePath) && password is not null)
+            if (Path.Exists(FilePath) && password is not null)
             {
-                Almacenista almacenista= new();
+                Almacenista almacenista = new();
                 List<Almacenista> almacenistas = almacenista.xmlDeSerial<Almacenista>(FilePath);
 
-                    almacenistas[posAlmacenista].password = Encrypt.getSHA1(password);
+                almacenistas[posAlmacenista].password = Encrypt.getSHA1(password);
 
-                    if(almacenista.xmlSerial<Almacenista>(FilePath, almacenistas))
-                    {
-                            return true;
-                    }   
-    
+                if (almacenista.xmlSerial<Almacenista>(FilePath, almacenistas))
+                {
+                    return true;
+                }
+
             }
-            
+
             return false;
         }
 
@@ -230,10 +230,10 @@ namespace Software
 
                 WriteLine($"\n{File.ReadAllText(Name)}");
 
-return true;
+                return true;
             }
 
-            
+
         }
 
 
@@ -253,7 +253,7 @@ return true;
                 }
             }
 
-            return lista ;
+            return lista;
 
         }
 
@@ -263,10 +263,22 @@ return true;
 
     }
 
-    public class Profesor: ISerializar
+    public class Profesor : ISerializar
     {
 
-       
+        private readonly List<String>? MateriasConocidas = new()
+        {
+            /*  {"Temas de Electronica I", new(){"Taller de Electronica I", "Taller de electronica II"}},
+                {"Sistemas Embebidos I", new(){"Salon Digitales I", "Salon Digitales II"}},
+                {"Sistemas Embebidos II", new(){"Salon Digitales I", "Salon Digitales II"}},
+                {"Sistemas Digitales I", new(){"Salon Digitales I", "Salon Digitales II"}},
+                {"Interfaces", new(){"Taller de Electronica I", "Taller de Electronica II"}},
+                {"Temas de Electronica I", new(){"Taller de Electronica I, Taller de electronica II"}}
+    */
+            "Temas de Electronica I", "Sistemas Embebidos I", "Sistemas Embebidos II", "Sistemas Digitales I", "Interfaces", "Temas de Electronica I"
+
+
+        };
 
         private readonly List<String>? DivisionesConocidas = new()
         {
@@ -277,7 +289,7 @@ return true;
         public string? nombreCompleto { get; set; }
 
 
-        
+
         public string? Nomina { get; set; }
 
         public string? password { get; set; }
@@ -291,19 +303,28 @@ return true;
 
         public Profesor(string Nombre, string Nomina, string password, string materia, string division)
         {
-                    this.nombreCompleto = Nombre;
-                    this.Nomina = Encrypt.getSHA1(Nomina);
-                    this.password = Encrypt.getSHA1(password);
-                    this.materias.Add(materia);
+            this.nombreCompleto = Nombre;
+            this.Nomina = Encrypt.getSHA1(Nomina);
+            this.password = Encrypt.getSHA1(password);
 
-                    if(DivisionesConocidas.Contains(division))
-                    {
-                    this.division = division;
-                    }
-                    else
-                    {
-                        this.division = "error";
-                    }
+
+            if (DivisionesConocidas.Contains(division))
+            {
+                this.division = division;
+            }
+            else
+            {
+                this.division = "error";
+            }
+
+            if (MateriasConocidas.Contains(materia)) //Verificar que exista dicha materia 
+            {
+                this.materias.Add(materia);
+            }
+            else
+            {
+                this.materias.Add("Error");
+            }
 
         }
 
@@ -316,8 +337,8 @@ return true;
         //Función que permite agregar profesores (verifica si: existe el archivo, ya existía el profesor, parámetros)
         public bool Agregar(Profesor profesor)
         {
-                string dirJSON = Combine(CurrentDirectory, "Profesores.json");
-                string dirXML = Combine(CurrentDirectory, "Profesores.xml");
+            string dirJSON = Combine(CurrentDirectory, "Profesores.json");
+            string dirXML = Combine(CurrentDirectory, "Profesores.xml");
 
             if (profesor is not null)
             {
@@ -334,14 +355,21 @@ return true;
                 //Ahora, con la lista de profesores, agregar el profesor que se posee:
                 lista.Add(profesor);
 
-                if(jsonSerial<Profesor>(dirJSON, lista) && xmlSerial<Profesor>(dirXML, lista))
+
+
+                if (jsonSerial<Profesor>(dirJSON, lista) && xmlSerial<Profesor>(dirXML, lista))
                 {
-                    //Si se logró convertir, entonces.
-                    return true;
+                    //Finalmente, queda vincular los profesores con su respectivo salón, para eso:
+                    Salon salon = new();
+                    if (salon.vincular(dirXML))
+                    {
+                        return true;
+                    }
+
                 }
 
                 //Volver a serializar el archivo
-return true;
+                return true;
             }
             else
             {
@@ -349,73 +377,75 @@ return true;
                 return false;
             }
 
-            
+
 
         }
 
 
-//Editar cualquier campo de un profesor
-        public bool Editar(string? Nomina,string? campoE, int? indexCampoE, string? FilePath)
+        //Editar cualquier campo de un profesor
+        public bool Editar(string? Nomina, string? campoE, int? indexCampoE, string? FilePath)
         {
-                List<Profesor> profesors = new();
-                Profesor profe= new();
-                  string dirJSON = Combine(CurrentDirectory, "Profesores.json");
-              
+            List<Profesor> profesors = new();
+            Profesor profe = new();
+            string dirJSON = Combine(CurrentDirectory, "Profesores.json");
 
-            if(Path.Exists(FilePath))
-            {
-            if(Nomina is not null && campoE is not null && indexCampoE is not null)
-            {
-                  int pos = buscadorProfesor(Nomina,FilePath);
 
-                  if(pos == -1 ){ return false;}
-                  //En caso contrario, quiere decir que encontró el profesor
+            if (Path.Exists(FilePath))
+            {
+                if (Nomina is not null && campoE is not null && indexCampoE is not null)
+                {
+                    int pos = buscadorProfesor(Nomina, FilePath);
+
+                    if (pos == -1) { return false; }
+                    //En caso contrario, quiere decir que encontró el profesor
 
                     profesors = profe.xmlDeSerial<Profesor>(FilePath);
-                   
+
 
                     //Ahora, determinar el campo que se va a modificar
-                    switch(indexCampoE)
+                    switch (indexCampoE)
                     {
                         case 1:
-                        profesors[pos].nombreCompleto = campoE;
-                        break;
+                            profesors[pos].nombreCompleto = campoE;
+                            break;
 
                         case 2:
-                        profesors[pos].Nomina = Encrypt.getSHA1(campoE);
-                        break;
+                            profesors[pos].Nomina = Encrypt.getSHA1(campoE);
+                            break;
 
                         case 3:
-                        if(DivisionesConocidas.Contains(campoE))
-                        {
-                        profesors[pos].division = campoE;
-                        }
-                        else{
-                             profesors[pos].division = "Error";
-                        }
-                        break;
+                            if (DivisionesConocidas.Contains(campoE))
+                            {
+                                profesors[pos].division = campoE;
+                            }
+                            else
+                            {
+                                profesors[pos].division = "Error";
+                            }
+                            break;
 
                         case 4:
-                        profesors[pos].materias.Clear();
-                        profesors[pos].materias.Add(campoE);
-                        break;
+                            profesors[pos].materias.Clear();
+                            profesors[pos].materias.Add(campoE);
+                            break;
 
                         case 5:
-                        profesors[pos].password = Encrypt.getSHA1(campoE);
-                        break;
+                            profesors[pos].password = Encrypt.getSHA1(campoE);
+                            break;
 
                     }
 
 
-                    if(profe.xmlSerial(FilePath, profesors) && profe.jsonSerial(dirJSON, profesors))
+                    if (profe.xmlSerial(FilePath, profesors) && profe.jsonSerial(dirJSON, profesors))
                     {
                         return true;
                     }
-                    else{
+                    else
+                    {
                         return false;
                     }
-                   
-            }
+
+                }
             }
 
             return false;
@@ -424,35 +454,35 @@ return true;
 
         //Metodo que permite eliminar un profesor por su nómina encriptada
 
-        public bool Eliminar(string? Nomina )
+        public bool Eliminar(string? Nomina)
         {
-                List<Profesor> profesors = new();
-                Profesor profesor = new();
+            List<Profesor> profesors = new();
+            Profesor profesor = new();
 
-                  string dirJSON = Combine(CurrentDirectory, "Profesores.json");
-                string dirXML = Combine(CurrentDirectory, "Profesores.xml");
+            string dirJSON = Combine(CurrentDirectory, "Profesores.json");
+            string dirXML = Combine(CurrentDirectory, "Profesores.xml");
 
-                if(Path.Exists(dirXML) && Nomina is not null)
-                {
-                        int pos = buscadorProfesor(Nomina, dirXML); //Encontrar la posición del profesor
+            if (Path.Exists(dirXML) && Nomina is not null)
+            {
+                int pos = buscadorProfesor(Nomina, dirXML); //Encontrar la posición del profesor
 
-                            if(pos == -1){ return false;} //NO existe el elemento
+                if (pos == -1) { return false; } //NO existe el elemento
 
-                        profesors = profesor.xmlDeSerial<Profesor>(dirXML); //Deserializar
+                profesors = profesor.xmlDeSerial<Profesor>(dirXML); //Deserializar
 
-                            profesors.RemoveAt(pos);
+                profesors.RemoveAt(pos);
 
-                            
-                if(jsonSerial<Profesor>(dirJSON, profesors) && xmlSerial<Profesor>(dirXML, profesors))
+
+                if (jsonSerial<Profesor>(dirJSON, profesors) && xmlSerial<Profesor>(dirXML, profesors))
                 {
                     //Si se logró convertir, entonces.
                     return true;
                 }
-                           
- return true;
-                } //Verificar que exista el archivo
 
-                return false;
+                return true;
+            } //Verificar que exista el archivo
+
+            return false;
         }
 
 
@@ -460,81 +490,81 @@ return true;
 
         static public int buscadorProfesor(string? Nomina, string? FilePath)
         {
-                List<Profesor> lista = new();
-                Profesor profesor = new();
-                int posicion=-1;
-                int conteo=0;
-                
-                if(Path.Exists(FilePath) && Nomina is not null )
+            List<Profesor> lista = new();
+            Profesor profesor = new();
+            int posicion = -1;
+            int conteo = 0;
+
+            if (Path.Exists(FilePath) && Nomina is not null)
+            {
+                //Si este el archivo, entonces:
+                lista = profesor.xmlDeSerial<Profesor>(FilePath);
+
+                foreach (var profesores in lista)
                 {
-                    //Si este el archivo, entonces:
-                    lista = profesor.xmlDeSerial<Profesor>(FilePath);
-                    
-                    foreach (var profesores in lista)
+                    if (profesores.Nomina == Encrypt.getSHA1(Nomina))
                     {
-                        if (profesores.Nomina == Encrypt.getSHA1(Nomina))
-                        {
-                                posicion= conteo;
-                                return posicion;
-                        }   
-                        conteo++;
+                        posicion = conteo;
+                        return posicion;
                     }
+                    conteo++;
                 }
-                
-                return posicion;
-                
-                
+            }
+
+            return posicion;
+
+
         }
 
 
         public bool reportes(int campoOrd, string? FilePath)
         {
 
-            if(Path.Exists(FilePath))
+            if (Path.Exists(FilePath))
             {
-            Profesor profesor = new();
-            List<Profesor> profesors = profesor.xmlDeSerial<Profesor>(FilePath);
-              List<Profesor>? pro = new();
-                switch(campoOrd)
+                Profesor profesor = new();
+                List<Profesor> profesors = profesor.xmlDeSerial<Profesor>(FilePath);
+                List<Profesor>? pro = new();
+                switch (campoOrd)
                 {
 
                     case 1:
-                     pro = new( profesors.OrderBy(Profesor => Profesor.Nomina).ToList());;
+                        pro = new(profesors.OrderBy(Profesor => Profesor.Nomina).ToList()); ;
 
-                    break;
+                        break;
 
                     case 2:
-                   pro = new( profesors.OrderBy(profesor => profesor.nombreCompleto).ToList());
+                        pro = new(profesors.OrderBy(profesor => profesor.nombreCompleto).ToList());
 
-                  
-                    break;
+
+                        break;
 
                     case 3:
-                    pro = new(profesors.OrderBy(profesor => profesor.division).ToList());
-                        
-                           
-                    break;
+                        pro = new(profesors.OrderBy(profesor => profesor.division).ToList());
+
+
+                        break;
 
                     case 4:
-                     pro = new( profesors.OrderBy(Profesor =>  Profesor.materias[0]).ToList());
-                 
-                    break;
+                        pro = new(profesors.OrderBy(Profesor => Profesor.materias[0]).ToList());
+
+                        break;
 
                     case 5:
-                         pro = new( profesors.OrderBy(Profesor => Profesor.password).ToList());
-                    break;
+                        pro = new(profesors.OrderBy(Profesor => Profesor.password).ToList());
+                        break;
 
 
                 }
-               
 
-            //Crear los reportes
+
+                //Crear los reportes
 
                 string reporteJSON = Combine(CurrentDirectory, "reporte.json");
                 string reporteXML = Combine(CurrentDirectory, "reporte.xml");
 
-                  
-return true;
+
+                return true;
             }
 
             return false;
@@ -553,7 +583,7 @@ return true;
                     //Desearilzar en una lista 
 
                     lista = xs.Deserialize(xmlLoad) as List<Profesor>;
-                    
+
 
                 }
             }
@@ -564,7 +594,7 @@ return true;
 
         public bool jsonSerial<Profesor>(string? Name, List<Profesor> lista)  //Implementación de la interfaz, que permite serializar en json
         {
-            if ( Name is null)
+            if (Name is null)
             {
 
                 return false;
@@ -583,16 +613,16 @@ return true;
                 }
                 WriteLine(File.ReadAllText(Name));
                 //EL objeto se crea dentro de los corchetes o paréntesis.
-  return true;
+                return true;
             }
-          
+
 
         }
 
 
         public bool xmlSerial<Profesor>(string? Name, List<Profesor> lista)
         {
-            if ( Name is null)
+            if (Name is null)
             {
                 return false;
             }
@@ -616,45 +646,110 @@ return true;
 
 
                 WriteLine($"\n{File.ReadAllText(Name)}");
-                   return false;
+                return false;
             }
 
-         
+
         }
 
 
 
     }
 
-    public class Salon: ISerializar
+    public class Salon : ISerializar
     {
 
-        public string? nombre {get; set;}
-        public string? grupo {get; set;}
+        public string? nombre { get; set; }
+        public string? grupo { get; set; }
 
         public List<Profesor>? profesor = new();
 
-        private readonly Dictionary<string,List<string>> SalonMateria = new()
+        private readonly Dictionary<string, List<string>> SalonMateria = new()
         {
-                {"Taller de Electronica", new(){"Temas de Electronica I", "Temas de Electronica II", "Interfaces"}},
-                {"Salon Digitales I", new(){"Sistemas Embebidos I", "Sistemas Embebidos II", "Sistemas Digitales I"}},
-                 {"Salon Digitales II", new(){"Sistemas Embebidos I", "Sistemas Embebidos II", "Sistemas Digitales I"}},
-                
+
+                {"Temas de Electronica I", new(){"Taller de Electronica I", "Taller de electronica II"}},
+                {"Sistemas Embebidos I", new(){"Salon Digitales I", "Salon Digitales II"}},
+                {"Sistemas Embebidos II", new(){"Salon Digitales I", "Salon Digitales II"}},
+                {"Sistemas Digitales I", new(){"Salon Digitales I", "Salon Digitales II"}},
+                {"Interfaces", new(){"Taller de Electronica I", "Taller de Electronica II"}},
+                {"Temas de Electronica II", new(){"Taller de Electronica I, Taller de electronica II"}}
+
         };
 
 
 
-    public bool vincular()
-    {
-
-
-        return false;
-    }
-    
-
-         public List<Salon> xmlDeSerial<Salon>(string FilePath)
+        public bool vincular(string? FilePathProfesor)
         {
-            
+            Profesor jefe = new(); //Permite manejar la lista para desarializar el XML
+
+            string FilePathSalon = Combine(CurrentDirectory, "Salones.xml");
+
+
+            if (Path.Exists(FilePathProfesor) && Path.Exists(FilePathSalon))
+            {
+                List<Profesor> profesores = jefe.xmlDeSerial<Profesor>(FilePathProfesor);
+                List<Salon> salones = xmlDeSerial<Salon>(FilePathSalon);//Lista que recibe los salones existentes
+                                                                        //Verificar que el profesor y salon no esté nulo
+                if (profesores is not null && salones is not null)
+                {
+                    //Realizar todo el proceso de vinculación
+                    foreach (var UnProfesor in profesores)
+                    {
+                        foreach (var MateriaProfesor in UnProfesor.materias)
+                        {
+                            foreach (var MateriaSalon in SalonMateria)
+                            {
+
+                                if (MateriaProfesor.Equals(MateriaSalon.Key))
+                                {
+                                    //Quiere decir que dicho maestro tiene esa materia
+                                    /// <summary>
+                                    /// Ahora es turno de buscar esa materia en el diccionario
+                                    /// y ver que salon la usa, para así agregar al maestro
+                                    /// /// 
+                                    /// </summary>
+                                    /// 
+                                    foreach (var salonesChidos in MateriaSalon.Value)
+                                    {
+                                        for (int i = 0; i < salones.Count; i++)
+                                        {
+
+
+                                            if (salonesChidos == salones[i].nombre)
+                                            {
+                                                salones[i].profesor.Add(UnProfesor);
+                                            }
+                                        }
+
+                                    }
+                                }
+                            }
+
+                        }
+
+                    }
+
+                    //Subir todo el nuevo archivo de salón
+                    if (xmlSerial<Salon>(FilePathSalon, salones) && jsonSerial<Salon>(FilePathSalon, salones))
+                    {
+                        return true;
+                    }
+                }
+
+                return true;
+            }
+            else
+            {
+
+                return false;
+            }
+
+        }
+
+
+        public List<Salon> xmlDeSerial<Salon>(string FilePath)
+        {
+
             List<Salon>? lista = new();
             if (Path.Exists(FilePath))
             {
@@ -664,7 +759,7 @@ return true;
                     //Desearilzar en una lista 
 
                     lista = xs.Deserialize(xmlLoad) as List<Salon>;
-                    
+
 
                 }
             }
@@ -675,7 +770,7 @@ return true;
 
         public bool jsonSerial<Salon>(string? Name, List<Salon> lista)  //Implementación de la interfaz, que permite serializar en json
         {
-            if ( Name is null)
+            if (Name is null)
             {
 
                 return false;
@@ -694,16 +789,16 @@ return true;
                 }
                 WriteLine(File.ReadAllText(Name));
                 //EL objeto se crea dentro de los corchetes o paréntesis.
-  return true;
+                return true;
             }
-          
+
 
         }
 
 
         public bool xmlSerial<Salon>(string? Name, List<Salon> lista)
         {
-            if ( Name is null)
+            if (Name is null)
             {
                 return false;
             }
@@ -727,22 +822,22 @@ return true;
 
 
                 WriteLine($"\n{File.ReadAllText(Name)}");
-                   return false;
+                return false;
             }
 
-         
+
         }
     }
 
-    public class Alumno: ISerializar
+    public class Alumno : ISerializar
     {
-        public  int registro {get; set;}
-       public string? nombreCompleto{ get; set;}
-        public string? password {get; set;}
+        public int registro { get; set; }
+        public string? nombreCompleto { get; set; }
+        public string? password { get; set; }
 
-        public Salon? salon {get; set;}
+        public Salon? salon { get; set; }
 
-public List<Alumno> xmlDeSerial<Alumno>(string FilePath)
+        public List<Alumno> xmlDeSerial<Alumno>(string FilePath)
         {
             List<Alumno>? lista = new();
             if (Path.Exists(FilePath))
@@ -762,7 +857,7 @@ public List<Alumno> xmlDeSerial<Alumno>(string FilePath)
 
         public bool jsonSerial<Salon>(string? Name, List<Salon> lista)  //Implementación de la interfaz, que permite serializar en json
         {
-            if ( Name is null)
+            if (Name is null)
             {
 
                 return false;
@@ -781,16 +876,16 @@ public List<Alumno> xmlDeSerial<Alumno>(string FilePath)
                 }
                 WriteLine(File.ReadAllText(Name));
                 //EL objeto se crea dentro de los corchetes o paréntesis.
-  return true;
+                return true;
             }
-          
+
 
         }
 
 
         public bool xmlSerial<Salon>(string? Name, List<Salon> lista)
         {
-            if ( Name is null)
+            if (Name is null)
             {
                 return false;
             }
@@ -814,12 +909,12 @@ public List<Alumno> xmlDeSerial<Alumno>(string FilePath)
 
 
                 WriteLine($"\n{File.ReadAllText(Name)}");
-                   return false;
+                return false;
             }
 
-         
+
         }
 
-      
+
     }
 }

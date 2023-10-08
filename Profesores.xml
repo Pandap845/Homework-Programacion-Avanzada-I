@@ -73,4 +73,24 @@
     <Nomina>eaa67f3a93d0acb08d8a5e8ff9866f51983b3c3b</Nomina>
     <password>f7c3bc1d808e04732adf679965ccc34ca7ae3441</password>
   </Profesor>
+  <Profesor>
+    <materias>
+      <string>Temas de Electronica I</string>
+      <string>Temas de Electronica I</string>
+      <string>Sistemas Embebidos I</string>
+    </materias>
+    <division>Electronica</division>
+    <nombreCompleto>Victor</nombreCompleto>
+    <Nomina>1966e694bad90686516f99cdf432800fdca39290</Nomina>
+    <password>f7c3bc1d808e04732adf679965ccc34ca7ae3441</password>
+  </Profesor>
+  <Profesor>
+    <materias>
+      <string>Temas de Electronica I</string>
+    </materias>
+    <division>Digitales</division>
+    <nombreCompleto>Francisco El grande</nombreCompleto>
+    <Nomina>685df181be80ff8d2018d3ff7c61f12c471005d2</Nomina>
+    <password>be472353ac1c55ca42df82c73bd40a8ce8420a28</password>
+  </Profesor>
 </ArrayOfProfesor>

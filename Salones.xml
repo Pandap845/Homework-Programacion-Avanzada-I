@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ArrayOfSalon xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Salon>
-    <nombre>Taller de Electronica</nombre>
+    <nombre>Taller de Electronica I</nombre>
+    <grupo>7F1</grupo>
+  </Salon>
+  <Salon>
+    <nombre>Taller de Electronica II</nombre>
     <grupo>7F1</grupo>
   </Salon>
   <Salon>
