@@ -87,12 +87,6 @@ namespace Software
             }
 
 
-
-
-
-
-
-
         }
     }
 
@@ -268,13 +262,8 @@ namespace Software
 
         private readonly List<String>? MateriasConocidas = new()
         {
-            /*  {"Temas de Electronica I", new(){"Taller de Electronica I", "Taller de electronica II"}},
-                {"Sistemas Embebidos I", new(){"Salon Digitales I", "Salon Digitales II"}},
-                {"Sistemas Embebidos II", new(){"Salon Digitales I", "Salon Digitales II"}},
-                {"Sistemas Digitales I", new(){"Salon Digitales I", "Salon Digitales II"}},
-                {"Interfaces", new(){"Taller de Electronica I", "Taller de Electronica II"}},
-                {"Temas de Electronica I", new(){"Taller de Electronica I, Taller de electronica II"}}
-    */
+
+
             "Temas de Electronica I", "Sistemas Embebidos I", "Sistemas Embebidos II", "Sistemas Digitales I", "Interfaces", "Temas de Electronica I"
 
 
@@ -355,18 +344,24 @@ namespace Software
                 //Ahora, con la lista de profesores, agregar el profesor que se posee:
                 lista.Add(profesor);
 
+                Salon salon = new();
+
+if ( salon.vincular(dirXML))
+{
 
 
                 if (jsonSerial<Profesor>(dirJSON, lista) && xmlSerial<Profesor>(dirXML, lista))
                 {
                     //Finalmente, queda vincular los profesores con su respectivo salón, para eso:
-                    Salon salon = new();
-                    if (salon.vincular(dirXML))
-                    {
-                        return true;
-                    }
+
+
+
 
                 }
+}
+else{
+
+}
 
                 //Volver a serializar el archivo
                 return true;
@@ -410,6 +405,9 @@ namespace Software
                             break;
 
                         case 2:
+
+
+
                             profesors[pos].Nomina = Encrypt.getSHA1(campoE);
                             break;
 
@@ -682,16 +680,19 @@ namespace Software
         {
             Profesor jefe = new(); //Permite manejar la lista para desarializar el XML
 
-            string FilePathSalon = Combine(CurrentDirectory, "Salones.xml");
-
-
-            if (Path.Exists(FilePathProfesor) && Path.Exists(FilePathSalon))
+            string FilePathSalonXML = Combine(CurrentDirectory, "Salones.xml");
+            string FilePathSalonJSON = Combine(CurrentDirectory, "Salones.json");
+      
+            if (Path.Exists(FilePathProfesor) && Path.Exists(FilePathSalonXML) && Path.Exists(FilePathSalonJSON))
             {
                 List<Profesor> profesores = jefe.xmlDeSerial<Profesor>(FilePathProfesor);
-                List<Salon> salones = xmlDeSerial<Salon>(FilePathSalon);//Lista que recibe los salones existentes
+                List<Salon> salones = xmlDeSerial<Salon>(FilePathSalonXML);//Lista que recibe los salones existentes
                                                                         //Verificar que el profesor y salon no esté nulo
                 if (profesores is not null && salones is not null)
                 {
+                    //limpiar la lista de salones de los profesores
+
+                
                     //Realizar todo el proceso de vinculación
                     foreach (var UnProfesor in profesores)
                     {
@@ -699,8 +700,9 @@ namespace Software
                         {
                             foreach (var MateriaSalon in SalonMateria)
                             {
+                                    WriteLine(MateriaSalon.Key);
 
-                                if (MateriaProfesor.Equals(MateriaSalon.Key))
+                                if (MateriaProfesor == MateriaSalon.Key)
                                 {
                                     //Quiere decir que dicho maestro tiene esa materia
                                     /// <summary>
@@ -709,6 +711,9 @@ namespace Software
                                     /// /// 
                                     /// </summary>
                                     /// 
+                                    /// 
+                                
+                                        
                                     foreach (var salonesChidos in MateriaSalon.Value)
                                     {
                                         for (int i = 0; i < salones.Count; i++)
@@ -717,7 +722,10 @@ namespace Software
 
                                             if (salonesChidos == salones[i].nombre)
                                             {
+                                                if(!salones[i].profesor.Contains(UnProfesor))
+                                                {
                                                 salones[i].profesor.Add(UnProfesor);
+                                                }
                                             }
                                         }
 
@@ -730,7 +738,7 @@ namespace Software
                     }
 
                     //Subir todo el nuevo archivo de salón
-                    if (xmlSerial<Salon>(FilePathSalon, salones) && jsonSerial<Salon>(FilePathSalon, salones))
+                    if (jsonSerial<Salon>(FilePathSalonJSON, salones) && xmlSerial<Salon>(FilePathSalonXML, salones))
                     {
                         return true;
                     }

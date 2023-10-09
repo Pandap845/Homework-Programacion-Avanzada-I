@@ -89,8 +89,62 @@
       <string>Temas de Electronica I</string>
     </materias>
     <division>Digitales</division>
-    <nombreCompleto>Francisco El grande</nombreCompleto>
+    <nombreCompleto>Francisco el pro</nombreCompleto>
     <Nomina>685df181be80ff8d2018d3ff7c61f12c471005d2</Nomina>
+    <password>be472353ac1c55ca42df82c73bd40a8ce8420a28</password>
+  </Profesor>
+  <Profesor>
+    <materias>
+      <string>Temas de Electronica I</string>
+    </materias>
+    <division>Electronica</division>
+    <nombreCompleto>PacoVdd</nombreCompleto>
+    <Nomina>fe5dbbcea5ce7e2988b8c69bcfdfde8904aabc1f</Nomina>
+    <password>be472353ac1c55ca42df82c73bd40a8ce8420a28</password>
+  </Profesor>
+  <Profesor>
+    <materias>
+      <string>Temas de Electronica I</string>
+    </materias>
+    <division>error</division>
+    <nombreCompleto>Fernando</nombreCompleto>
+    <Nomina>4d134bc072212ace2df385dae143139da74ec0ef</Nomina>
+    <password>be472353ac1c55ca42df82c73bd40a8ce8420a28</password>
+  </Profesor>
+  <Profesor>
+    <materias>
+      <string>Temas de Electronica I</string>
+    </materias>
+    <division>Electronica</division>
+    <nombreCompleto>Victor</nombreCompleto>
+    <Nomina>f6e1126cedebf23e1463aee73f9df08783640400</Nomina>
+    <password>be472353ac1c55ca42df82c73bd40a8ce8420a28</password>
+  </Profesor>
+  <Profesor>
+    <materias>
+      <string>Temas de Electronica I</string>
+    </materias>
+    <division>Electronica</division>
+    <nombreCompleto>Angel</nombreCompleto>
+    <Nomina>9e6a55b6b4563e652a23be9d623ca5055c356940</Nomina>
+    <password>be472353ac1c55ca42df82c73bd40a8ce8420a28</password>
+  </Profesor>
+  <Profesor>
+    <materias>
+      <string>Sistemas Embebidos I</string>
+    </materias>
+    <division>Digitales</division>
+    <nombreCompleto>Roberto</nombreCompleto>
+    <Nomina>ca3512f4dfa95a03169c5a670a4c91a19b3077b4</Nomina>
+    <password>717f2d3700d25060f4aba63442def17cf5e90f15</password>
+  </Profesor>
+  <Profesor>
+    <materias>
+      <string>Interfaces</string>
+    </materias>
+    <division>Electronica</division>
+    <nombreCompleto>Er</nombreCompleto>
+    <Nomina>af3e133428b9e25c55bc59fe534248e6a0c0f17b</Nomina>
     <password>be472353ac1c55ca42df82c73bd40a8ce8420a28</password>
   </Profesor>
 </ArrayOfProfesor>

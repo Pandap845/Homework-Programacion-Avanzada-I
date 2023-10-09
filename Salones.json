@@ -1,1 +1,103 @@
-[{"profesor":null,"nombre":"Taller de Electronica I","grupo":"7F1"},{"profesor":null,"nombre":"Taller de Electronica II","grupo":"7F1"},{"profesor":null,"nombre":"Salon Digitales I","grupo":"4A1"},{"profesor":null,"nombre":"Salon Digitales II","grupo":"5S2"}]
+[
+  {
+    "profesor": [
+      {
+        "materias": [
+          "Temas de Electronica I",
+          "Temas de Electronica I",
+          "Sistemas Embebidos I"
+        ],
+        "division": "Electronica",
+        "nombreCompleto": "Victor",
+        "Nomina": "1966e694bad90686516f99cdf432800fdca39290",
+        "password": "f7c3bc1d808e04732adf679965ccc34ca7ae3441"
+      },
+      {
+        "materias": ["Temas de Electronica I"],
+        "division": "Digitales",
+        "nombreCompleto": "Francisco el pro",
+        "Nomina": "685df181be80ff8d2018d3ff7c61f12c471005d2",
+        "password": "be472353ac1c55ca42df82c73bd40a8ce8420a28"
+      },
+      {
+        "materias": ["Temas de Electronica I"],
+        "division": "Electronica",
+        "nombreCompleto": "PacoVdd",
+        "Nomina": "fe5dbbcea5ce7e2988b8c69bcfdfde8904aabc1f",
+        "password": "be472353ac1c55ca42df82c73bd40a8ce8420a28"
+      },
+      {
+        "materias": ["Temas de Electronica I"],
+        "division": "error",
+        "nombreCompleto": "Fernando",
+        "Nomina": "4d134bc072212ace2df385dae143139da74ec0ef",
+        "password": "be472353ac1c55ca42df82c73bd40a8ce8420a28"
+      },
+      {
+        "materias": ["Temas de Electronica I"],
+        "division": "Electronica",
+        "nombreCompleto": "Victor",
+        "Nomina": "f6e1126cedebf23e1463aee73f9df08783640400",
+        "password": "be472353ac1c55ca42df82c73bd40a8ce8420a28"
+      },
+      {
+        "materias": ["Temas de Electronica I"],
+        "division": "Electronica",
+        "nombreCompleto": "Angel",
+        "Nomina": "9e6a55b6b4563e652a23be9d623ca5055c356940",
+        "password": "be472353ac1c55ca42df82c73bd40a8ce8420a28"
+      }
+    ],
+    "nombre": "Taller de Electronica I",
+    "grupo": "7F1"
+  },
+  { "profesor": [], "nombre": "Taller de Electronica II", "grupo": "7F1" },
+  {
+    "profesor": [
+      {
+        "materias": [
+          "Temas de Electronica I",
+          "Temas de Electronica I",
+          "Sistemas Embebidos I"
+        ],
+        "division": "Electronica",
+        "nombreCompleto": "Victor",
+        "Nomina": "1966e694bad90686516f99cdf432800fdca39290",
+        "password": "f7c3bc1d808e04732adf679965ccc34ca7ae3441"
+      },
+      {
+        "materias": ["Sistemas Embebidos I"],
+        "division": "Digitales",
+        "nombreCompleto": "Roberto",
+        "Nomina": "ca3512f4dfa95a03169c5a670a4c91a19b3077b4",
+        "password": "717f2d3700d25060f4aba63442def17cf5e90f15"
+      }
+    ],
+    "nombre": "Salon Digitales I",
+    "grupo": "4A1"
+  },
+  {
+    "profesor": [
+      {
+        "materias": [
+          "Temas de Electronica I",
+          "Temas de Electronica I",
+          "Sistemas Embebidos I"
+        ],
+        "division": "Electronica",
+        "nombreCompleto": "Victor",
+        "Nomina": "1966e694bad90686516f99cdf432800fdca39290",
+        "password": "f7c3bc1d808e04732adf679965ccc34ca7ae3441"
+      },
+      {
+        "materias": ["Sistemas Embebidos I"],
+        "division": "Digitales",
+        "nombreCompleto": "Roberto",
+        "Nomina": "ca3512f4dfa95a03169c5a670a4c91a19b3077b4",
+        "password": "717f2d3700d25060f4aba63442def17cf5e90f15"
+      }
+    ],
+    "nombre": "Salon Digitales II",
+    "grupo": "5S2"
+  }
+]
